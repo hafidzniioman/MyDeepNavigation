@@ -47,33 +47,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             return null;
         }
-    }
 
-    @Override
-    public void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-        showNotification(MainActivity.this, "override onPostExecute", 110);
-    }
 
-    private void showNotification(Context context, String title, String message, int notifId) {
-        Intent notifDetailIntent = new Intent(MainActivity.this, DetailActivity.class);
-        notifDetailIntent.putExtra(DetailActivity.EXTRA_TITLE, title);
-        notifDetailIntent.putExtra(DetailActivity.EXTRA_MESSAGE, message);
-        PendingIntent pendingIntent = TaskStackBuilder.create(this)
-                .addParentStack(DetailActivity.class)
-                .addNextIntent(notifDetailIntent)
-                .getPendingIntent(110, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationManager notificationManagerCompat = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setContentTitle(title)
-                .setSmallIcon(R.drawable.ic_email_black_24dp)
-                .setContentText(message)
-                .setColor(ContextCompat.getColor(context, android.R.color.white))
-                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
-                .setSound(alarmSound)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
-        notificationManagerCompat.notify(notifId, builder.build());
+        @Override
+        public void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            showNotification(MainActivity.this, "override onPostExecute", 110);
+        }
+
+        private void showNotification(Context context, String title, String message, int notifId) {
+            Intent notifDetailIntent = new Intent(MainActivity.this, DetailActivity.class);
+            notifDetailIntent.putExtra(DetailActivity.EXTRA_TITLE, title);
+            notifDetailIntent.putExtra(DetailActivity.EXTRA_MESSAGE, message);
+            PendingIntent pendingIntent = TaskStackBuilder.create(this)
+                    .addParentStack(DetailActivity.class)
+                    .addNextIntent(notifDetailIntent)
+                    .getPendingIntent(110, PendingIntent.FLAG_UPDATE_CURRENT);
+            NotificationManager notificationManagerCompat = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                    .setContentTitle(title)
+                    .setSmallIcon(R.drawable.ic_email_black_24dp)
+                    .setContentText(message)
+                    .setColor(ContextCompat.getColor(context, android.R.color.white))
+                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                    .setSound(alarmSound)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
+            notificationManagerCompat.notify(notifId, builder.build());
+        }
     }
 }
